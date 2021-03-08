@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  dev:
+    image: johnny-five-plant-monitor
+    command: sh -c "tail -f /dev/null"
+    working_dir: /src
+    volumes:
+      - ./:/src:delegated
+      - /src/node_modules
+      - ~/.ssh:/root/.ssh:ro
+    ports:
+      - 8888:8888
+  database:
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=plant-monitor
+      - MONGO_INITDB_ROOT_USERNAME=dev
+      - MONGO_INITDB_ROOT_PASSWORD=dev
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - /data/db
+    ports:
+      - '27017-27019:27017-27019'
