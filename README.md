@@ -1,6 +1,18 @@
+# Johnny Five Plant Monitor
 
+## Quick Start with VS Code
 
-# JohnnyFivePlantMonitor
+> Make sure docker is installed. Docker Desktop is recommended.
+
+Run `npm run docker:build` to generate the developer docker image.
+
+In the Command Palette, select `Remote-Containers: Open Folder in Container ...`
+
+Select the root folder of this project.
+
+Run `ng run plant-monitor:serve-all` to start all services when you're ready.
+
+---
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -86,11 +98,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-
-
-
-
 
 ## ☁ Nx Cloud
 
