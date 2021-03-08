@@ -102,6 +102,13 @@
             "browserTarget": "plant-monitor:build"
           }
         },
+        "serve-all": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": ["nx serve api", "nx serve plant-monitor"],
+            "parallel": true
+          }
+        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
