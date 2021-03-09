@@ -2,6 +2,28 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nrwl/nx"],
+  "rules": {
+    "curly": "warn",
+    "no-multiple-empty-lines": "warn",
+    "import/newline-after-import": "warn",
+    "import/no-absolute-path": "error",
+    "import/no-anonymous-default-export": "error",
+    "import/no-dynamic-require": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/no-mutable-exports": "error",
+    "import/no-self-import": "error",
+    "import/no-useless-path-segments": "error",
+    "import/no-webpack-loader-syntax": "error",
+    "import/default": "off",
+    "import/named": "off",
+    "import/namespace": "off",
+    "import/no-cycle": "off",
+    "import/no-deprecated": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-namespace": "off",
+    "import/no-unused-modules": "off"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
