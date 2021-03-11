@@ -49,6 +49,7 @@
     "bootstrap": "^4.5.0",
     "johnny-five": "^2.0.0",
     "ng-bootstrap": "^1.6.3",
+    "ngx-socket-io": "^3.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",

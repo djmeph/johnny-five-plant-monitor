@@ -24,9 +24,8 @@ export class AppGateway
 
   afterInit(server: Server) {
     this.logger.log('Init');
-    setInterval(
-      () => this.server.emit('message', { message: 'Wa Da Ta' }),
-      500
-    );
+    setInterval(() => {
+      this.server.emit('message', { message: 'Wa Da Ta' });
+    }, 500);
   }
 }
