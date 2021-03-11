@@ -9,12 +9,12 @@ import { Socket } from 'ngx-socket-io';
 export class AppComponent implements OnInit, OnDestroy {
   msg = this.socket.fromEvent<any>('message');
   sub;
+  message;
 
   constructor(private socket: Socket) {}
 
   ngOnInit() {
-    console.log('hi');
-    this.sub = this.msg.subscribe((message) => console.log(message));
+    this.sub = this.msg.subscribe((message) => (this.message = message));
   }
 
   ngOnDestroy() {
