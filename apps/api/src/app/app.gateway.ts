@@ -12,7 +12,7 @@ import * as firmata from 'firmata';
 import * as five from 'johnny-five';
 
 const options = {
-  host: '192.168.0.193',
+  host: 'plant1.local',
   port: 3030,
 };
 
