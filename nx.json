@@ -22,6 +22,7 @@
       "implicitDependencies": ["plant-monitor"]
     },
     "api-interfaces": { "tags": [] },
-    "gateway": { "tags": [] }
+    "gateway": { "tags": [] },
+    "board-io": { "tags": [] }
   }
 }

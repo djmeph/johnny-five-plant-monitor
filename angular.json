@@ -217,6 +217,27 @@
           }
         }
       }
+    },
+    "board-io": {
+      "root": "libs/board-io",
+      "sourceRoot": "libs/board-io/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/board-io/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/board-io"],
+          "options": {
+            "jestConfig": "libs/board-io/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
