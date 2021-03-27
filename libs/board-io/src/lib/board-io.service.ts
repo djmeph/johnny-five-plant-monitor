@@ -66,8 +66,7 @@ export class BoardIoService {
     });
     const gateway = this;
     moistureSensor.on('data', function () {
-      const moisture = Math.round((this.value / 1023) * 100);
-      gateway.moisture = Math.abs(moisture - 100);
+      gateway.moisture = Math.floor((this.value / 1023) * 100);
     });
   }
 
