@@ -259,6 +259,27 @@
           }
         }
       }
+    },
+    "bcrypt": {
+      "root": "libs/bcrypt",
+      "sourceRoot": "libs/bcrypt/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/bcrypt/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/bcrypt"],
+          "options": {
+            "jestConfig": "libs/bcrypt/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

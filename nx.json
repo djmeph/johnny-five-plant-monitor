@@ -24,6 +24,7 @@
     "api-interfaces": { "tags": [] },
     "gateway": { "tags": [] },
     "board-io": { "tags": [] },
-    "models-users": { "tags": [] }
+    "models-users": { "tags": [] },
+    "bcrypt": { "tags": [] }
   }
 }

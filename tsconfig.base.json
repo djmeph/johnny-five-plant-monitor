@@ -21,7 +21,8 @@
       "@johnny-five-plant-monitor/board-io": ["libs/board-io/src/index.ts"],
       "@johnny-five-plant-monitor/models/users": [
         "libs/models/users/src/index.ts"
-      ]
+      ],
+      "@johnny-five-plant-monitor/bcrypt": ["libs/bcrypt/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
