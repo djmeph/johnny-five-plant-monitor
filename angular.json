@@ -238,27 +238,6 @@
           }
         }
       }
-    },
-    "schemas": {
-      "root": "libs/schemas",
-      "sourceRoot": "libs/schemas/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/schemas/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/schemas"],
-          "options": {
-            "jestConfig": "libs/schemas/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
     }
   }
 }

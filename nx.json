@@ -23,7 +23,6 @@
     },
     "api-interfaces": { "tags": [] },
     "gateway": { "tags": [] },
-    "board-io": { "tags": [] },
-    "schemas": { "tags": [] }
+    "board-io": { "tags": [] }
   }
 }
