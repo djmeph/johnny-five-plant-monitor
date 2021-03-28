@@ -18,7 +18,10 @@
       "@johnny-five-plant-monitor/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
       ],
-      "@johnny-five-plant-monitor/board-io": ["libs/board-io/src/index.ts"]
+      "@johnny-five-plant-monitor/board-io": ["libs/board-io/src/index.ts"],
+      "@johnny-five-plant-monitor/models/users": [
+        "libs/models/users/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
