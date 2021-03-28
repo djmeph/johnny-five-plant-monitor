@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UsersSchema } from './users.schema';
 import { UsersService } from './users.service';
-import { BcryptService } from '@johnny-five-plant-monitor/bcrypt';
+import { BcryptModule, BcryptService } from '@johnny-five-plant-monitor/bcrypt';
 
 const SALT_WORK_FACTOR = 11;
 
@@ -11,7 +11,8 @@ const SALT_WORK_FACTOR = 11;
     MongooseModule.forFeatureAsync([
       {
         name: User.name,
-        imports: [BcryptService],
+        imports: [BcryptModule],
+        inject: [BcryptService],
         useFactory: async (bcrypt: BcryptService) => {
           const schema = UsersSchema;
           schema.pre('save', async function () {
@@ -27,6 +28,6 @@ const SALT_WORK_FACTOR = 11;
     ]),
   ],
   providers: [UsersService],
-  exports: [],
+  exports: [UsersService],
 })
 export class UsersModule {}
