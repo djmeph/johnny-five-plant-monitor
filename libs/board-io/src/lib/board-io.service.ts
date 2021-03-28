@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import * as net from 'net';
 import * as firmata from 'firmata';
 import * as five from 'johnny-five';
+import * as _ from 'lodash';
 
 const options = {
   host: 'plant1.local',
@@ -60,13 +61,28 @@ export class BoardIoService {
   }
 
   startMoistureSensor() {
+    const sampleSize = 1000; // milliseconds
     const moistureSensor = new five.Sensor({
       pin: 'A0',
       freq: 250,
     });
     const gateway = this;
+    let firstSample = new Date().getTime();
+    let sampleBuffer = [];
+
     moistureSensor.on('data', function () {
-      gateway.moisture = Math.floor((this.value / 1023) * 100);
+      sampleBuffer.push(this.value);
+      const now = new Date().getTime();
+      if (now - firstSample >= sampleSize) {
+        const avg =
+          sampleBuffer.reduce((curr, val) => {
+            curr += val;
+            return curr;
+          }, 0) / sampleBuffer.length;
+        gateway.moisture = Math.floor((avg / 1023) * 100);
+        sampleBuffer = [];
+        firstSample = now;
+      }
     });
   }
 
