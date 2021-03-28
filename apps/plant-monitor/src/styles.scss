@@ -2,3 +2,20 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@import 'https://fonts.googleapis.com/css?family=Ubuntu';
+
+a {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  color: #fff;
+  font-family: 'Ubuntu', sans-serif;
+  overflow: hidden;
+}
