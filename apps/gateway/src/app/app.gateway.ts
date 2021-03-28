@@ -5,6 +5,8 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
   WebSocketServer,
+  SubscribeMessage,
+  MessageBody,
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { BoardIoService } from '@johnny-five-plant-monitor/board-io';
@@ -34,5 +36,11 @@ export class AppGateway
 
   poll() {
     this.server.emit('message', { moisture: this.boardIo.moisture });
+  }
+
+  @SubscribeMessage('login')
+  handler(@MessageBody() data: string): string {
+    console.log(data);
+    return data;
   }
 }

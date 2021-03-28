@@ -1,7 +1,5 @@
-<div class="container">
-  <div class="jumbotron">
-    <h1 *ngIf="message" class="display-4">
-      {{ message.moisture | number }}% Moisture
-    </h1>
+<main>
+  <div id="content" class="container">
+    <router-outlet></router-outlet>
   </div>
-</div>
+</main>
