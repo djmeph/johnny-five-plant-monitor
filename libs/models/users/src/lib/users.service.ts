@@ -15,6 +15,12 @@ export class UsersService {
     private userModel: Model<UserDocument>
   ) {}
 
+  async create(data): Promise<User> {
+    const user = new this.userModel(data);
+    await user.save();
+    return user;
+  }
+
   findOne(params): Promise<User> {
     return this.userModel.findOne(params).exec();
   }

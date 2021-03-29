@@ -23,7 +23,7 @@ export class BcryptService {
 
   hash(data: string, salt: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(data, salt, (err: Error, result: string) => {
+      bcrypt.hash(data, salt, null, (err: Error, result: string) => {
         if (err) return reject(err);
         resolve(result);
       });

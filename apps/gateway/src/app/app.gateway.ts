@@ -10,6 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { BoardIoService } from '@johnny-five-plant-monitor/board-io';
+import { UsersService } from '@johnny-five-plant-monitor/models/users';
 
 @WebSocketGateway()
 export class AppGateway
@@ -17,7 +18,7 @@ export class AppGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
 
-  constructor(private boardIo: BoardIoService) {}
+  constructor(private boardIo: BoardIoService, private user: UsersService) {}
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
@@ -39,8 +40,22 @@ export class AppGateway
   }
 
   @SubscribeMessage('login')
-  handler(@MessageBody() data: string): string {
+  loginHandler(@MessageBody() data: string): string {
     console.log(data);
     return data;
+  }
+
+  @SubscribeMessage('signup')
+  async signupHandler(
+    @MessageBody() data: UserDocument
+  ): Promise<UserDocument> {
+    try {
+      const user = await this.user.create(data);
+      console.log(user);
+      return data;
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
   }
 }

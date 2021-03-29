@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { AppGateway } from './app.gateway';
 import { BoardIoModule } from '@johnny-five-plant-monitor/board-io';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from '@johnny-five-plant-monitor/models/users';
 
 const {
   MONGODB_HOSTNAME,
@@ -19,6 +20,7 @@ const {
       user: MONGODB_USERNAME,
       pass: MONGODB_PASSWORD,
     }),
+    UsersModule,
   ],
   controllers: [],
   providers: [AppGateway],
