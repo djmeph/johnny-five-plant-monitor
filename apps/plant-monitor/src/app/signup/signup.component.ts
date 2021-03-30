@@ -11,8 +11,7 @@ export class SignupComponent {
 
   async submit() {
     try {
-      console.log('submit');
-      await this.auth.signUp();
+      await this.auth.signup();
     } catch (err) {
       console.error(err);
     }

@@ -7,10 +7,14 @@ import {
   WebSocketServer,
   SubscribeMessage,
   MessageBody,
+  ConnectedSocket,
 } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { BoardIoService } from '@johnny-five-plant-monitor/board-io';
-import { UsersService } from '@johnny-five-plant-monitor/models/users';
+import {
+  UserDocument,
+  UsersService,
+} from '@johnny-five-plant-monitor/models/users';
 
 @WebSocketGateway()
 export class AppGateway
@@ -40,22 +44,34 @@ export class AppGateway
   }
 
   @SubscribeMessage('login')
-  loginHandler(@MessageBody() data: string): string {
-    console.log(data);
+  async loginHandler(
+    @ConnectedSocket()
+    client: Socket,
+    @MessageBody()
+    data: UserDocument
+  ): Promise<UserDocument> {
+    try {
+      const user = await this.user.getAuthenticated(data);
+      client.emit('login', user);
+    } catch (err) {
+      client.emit('login', { err: err.message });
+    }
     return data;
   }
 
   @SubscribeMessage('signup')
   async signupHandler(
-    @MessageBody() data: UserDocument
+    @ConnectedSocket()
+    client: Socket,
+    @MessageBody()
+    data: UserDocument
   ): Promise<UserDocument> {
     try {
       const user = await this.user.create(data);
-      console.log(user);
-      return data;
+      client.emit('signup', user);
     } catch (err) {
-      console.error(err);
-      return err;
+      client.emit('signup', { err: err.message });
     }
+    return data;
   }
 }

@@ -8,6 +8,7 @@ const SALT_WORK_FACTOR = 11;
 
 @Module({
   imports: [
+    BcryptModule,
     MongooseModule.forFeatureAsync([
       {
         name: User.name,

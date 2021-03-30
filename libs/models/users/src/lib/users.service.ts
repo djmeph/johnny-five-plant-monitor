@@ -1,3 +1,4 @@
+import { BcryptService } from '@johnny-five-plant-monitor/bcrypt';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -12,7 +13,8 @@ export enum failedLoginReasons {
 export class UsersService {
   constructor(
     @InjectModel(User.name)
-    private userModel: Model<UserDocument>
+    private userModel: Model<UserDocument>,
+    private bcrypt: BcryptService
   ) {}
 
   async create(data): Promise<User> {
@@ -25,10 +27,10 @@ export class UsersService {
     return this.userModel.findOne(params).exec();
   }
 
-  async getAuthenticated(username, password): Promise<User> {
+  async getAuthenticated({ username, password }): Promise<User> {
     const user = await this.findOne({ username });
     if (!user) throw new Error(failedLoginReasons.NOT_FOUND);
-    const isMatch = await user.comparePassword(password);
+    const isMatch = await this.bcrypt.compare(password, user.password);
     if (isMatch) return user;
     throw new Error(failedLoginReasons.PASSWORD_INCORRECT);
   }
