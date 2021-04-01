@@ -11,7 +11,7 @@ export class LoginComponent {
 
   async submit() {
     try {
-      await this.auth.login(this.auth.loginValue);
+      await this.auth.login();
     } catch (err) {
       console.error(err);
     }

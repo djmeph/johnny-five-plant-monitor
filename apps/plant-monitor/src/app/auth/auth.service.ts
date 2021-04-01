@@ -7,6 +7,7 @@ import {
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 import { loginForm, LoginFormValues, loginStatuses } from './forms/login.form';
+import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class AuthService {
   public loginForm = loginForm;
   public signupStatus = signupStatuses;
   public loginStatus = loginStatuses;
+  private token;
   private msgSignup = this.socket.fromEvent<string>('signup');
   private msgLogin = this.socket.fromEvent<string>('login');
   private subSignup: Subscription;
@@ -32,25 +34,34 @@ export class AuthService {
     return this.loginForm.value;
   }
 
-  init(): void {
-    this.subSignup = this.msgSignup.subscribe((message) => {
-      console.log(message);
-    });
-    this.subLogin = this.msgLogin.subscribe((message) => {
-      console.log(message);
-    });
-  }
-
   destroy(): void {
     this.subSignup.unsubscribe();
     this.subLogin.unsubscribe();
   }
 
-  signup(): void {
-    this.socket.emit('signup', this.signupValue);
+  signup(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.subSignup = this.msgSignup.subscribe((message: any) => {
+        if (message.err) return reject(new Error(message.err));
+        this.token = message.token;
+        console.log({ token: this.token });
+        this.subSignup.unsubscribe();
+        resolve();
+      });
+      this.socket.emit('signup', this.signupValue);
+    });
   }
 
-  login(data): void {
-    this.socket.emit('login', data);
+  login(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.subLogin = this.msgLogin.subscribe((message: any) => {
+        if (message.err) return reject(new Error(message.err));
+        this.token = message.token;
+        console.log({ token: this.token });
+        this.subLogin.unsubscribe();
+        resolve();
+      });
+      this.socket.emit('login', this.loginValue);
+    });
   }
 }
