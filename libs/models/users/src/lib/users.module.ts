@@ -3,12 +3,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UsersSchema } from './users.schema';
 import { UsersService } from './users.service';
 import { BcryptModule, BcryptService } from '@johnny-five-plant-monitor/bcrypt';
+import { JwtModule } from '@nestjs/jwt';
 
 const SALT_WORK_FACTOR = 11;
 
 @Module({
   imports: [
     BcryptModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'hard!to-guess_secret',
+    }),
     MongooseModule.forFeatureAsync([
       {
         name: User.name,

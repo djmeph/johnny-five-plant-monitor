@@ -12,7 +12,9 @@ import {
 import { Server, Socket } from 'socket.io';
 import { BoardIoService } from '@johnny-five-plant-monitor/board-io';
 import {
+  UserSignup,
   UserDocument,
+  UserLogin,
   UsersService,
 } from '@johnny-five-plant-monitor/models/users';
 
@@ -48,11 +50,11 @@ export class AppGateway
     @ConnectedSocket()
     client: Socket,
     @MessageBody()
-    data: UserDocument
-  ): Promise<UserDocument> {
+    data: UserLogin
+  ): Promise<UserLogin> {
     try {
-      const user = await this.user.getAuthenticated(data);
-      client.emit('login', user);
+      const auth = await this.user.getAuthenticated(data);
+      client.emit('login', auth);
     } catch (err) {
       client.emit('login', { err: err.message });
     }
@@ -64,11 +66,11 @@ export class AppGateway
     @ConnectedSocket()
     client: Socket,
     @MessageBody()
-    data: UserDocument
-  ): Promise<UserDocument> {
+    data: UserSignup
+  ): Promise<UserSignup> {
     try {
-      const user = await this.user.create(data);
-      client.emit('signup', user);
+      const auth = await this.user.create(data);
+      client.emit('signup', auth);
     } catch (err) {
       client.emit('signup', { err: err.message });
     }
