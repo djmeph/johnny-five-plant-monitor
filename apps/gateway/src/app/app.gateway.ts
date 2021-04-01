@@ -13,7 +13,6 @@ import { Server, Socket } from 'socket.io';
 import { BoardIoService } from '@johnny-five-plant-monitor/board-io';
 import {
   UserSignup,
-  UserDocument,
   UserLogin,
   UsersService,
 } from '@johnny-five-plant-monitor/models/users';
