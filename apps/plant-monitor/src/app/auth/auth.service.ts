@@ -7,7 +7,6 @@ import {
 import { Socket } from 'ngx-socket-io';
 import { Subscription } from 'rxjs';
 import { loginForm, LoginFormValues, loginStatuses } from './forms/login.form';
-import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +17,7 @@ export class AuthService {
   public loginForm = loginForm;
   public signupStatus = signupStatuses;
   public loginStatus = loginStatuses;
-  private token;
+  public token;
   private msgSignup = this.socket.fromEvent<string>('signup');
   private msgLogin = this.socket.fromEvent<string>('login');
   private subSignup: Subscription;
@@ -30,13 +29,16 @@ export class AuthService {
     return this.signupForm.value;
   }
 
+  set signupValue(value: SignupFormValues) {
+    this.signupForm.setValue(value);
+  }
+
   get loginValue(): LoginFormValues {
     return this.loginForm.value;
   }
 
-  destroy(): void {
-    this.subSignup.unsubscribe();
-    this.subLogin.unsubscribe();
+  set loginValue(value: LoginFormValues) {
+    this.loginForm.setValue(value);
   }
 
   signup(): Promise<void> {
@@ -44,6 +46,7 @@ export class AuthService {
       this.subSignup = this.msgSignup.subscribe((message: any) => {
         if (message.err) return reject(new Error(message.err));
         this.token = message.token;
+        localStorage.setItem('token', this.token);
         console.log({ token: this.token });
         this.subSignup.unsubscribe();
         resolve();
@@ -57,11 +60,17 @@ export class AuthService {
       this.subLogin = this.msgLogin.subscribe((message: any) => {
         if (message.err) return reject(new Error(message.err));
         this.token = message.token;
+        localStorage.setItem('token', this.token);
         console.log({ token: this.token });
         this.subLogin.unsubscribe();
         resolve();
       });
       this.socket.emit('login', this.loginValue);
     });
+  }
+
+  signOut(): void {
+    localStorage.removeItem('token');
+    delete this.token;
   }
 }

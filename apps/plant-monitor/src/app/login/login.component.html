@@ -18,7 +18,7 @@
         <div class="col col-6 pt-4">
           <button
             type="submit"
-            [disabled]="auth.loginForm.invalid"
+            [disabled]="auth.token || auth.loginForm.invalid"
             class="btn btn-light"
           >
             Log in

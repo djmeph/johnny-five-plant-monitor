@@ -12,7 +12,7 @@
         </a>
       </li>
     </ul>
-    <ul *ngIf="!auth.user" class="navbar-nav my-2 my-lg-0">
+    <ul *ngIf="!auth.token" class="navbar-nav my-2 my-lg-0">
       <li class="nav-item">
         <a [routerLink]="['login']" class="nav-link btn btn-link">Login</a>
       </li>
@@ -20,7 +20,7 @@
         <a [routerLink]="['signup']" class="nav-link btn btn-link">Sign Up</a>
       </li>
     </ul>
-    <ul *ngIf="auth.user" class="navbar-nav my-2 my-lg-0">
+    <ul *ngIf="auth.token" class="navbar-nav my-2 my-lg-0">
       <li class="nav-item">
         <a (click)="auth.signOut()" class="nav-link btn btn-link">Logout</a>
       </li>
